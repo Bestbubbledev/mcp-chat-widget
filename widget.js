@@ -362,6 +362,11 @@
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
+  // --- Welcome message ---
+  const welcomeMsg = scriptTag?.getAttribute("data-welcome") || "Hi, how can I help you today?";
+  addMessage(welcomeMsg, "bot");
+  conversationHistory.push({ role: "assistant", content: welcomeMsg });
+
   // --- Send Message ---
   async function sendMessage() {
     const text = inputEl.value.trim();
