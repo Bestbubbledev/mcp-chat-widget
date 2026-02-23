@@ -139,7 +139,7 @@
 
     .mcpcw-msg {
       max-width: 80%;
-      padding: 10px 14px;
+      padding: 14px 18px;
       border-radius: 10px;
       font-size: 13.5px;
       line-height: 1.6;
