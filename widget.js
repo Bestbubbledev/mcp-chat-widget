@@ -115,10 +115,10 @@
     #mcpcw-messages {
       flex: 1;
       overflow-y: auto;
-      padding: 16px;
+      padding: 20px 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       background: #f9fafb;
     }
     #mcpcw-messages::-webkit-scrollbar {
@@ -134,10 +134,10 @@
 
     .mcpcw-msg {
       max-width: 82%;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: 14px;
       font-size: 14px;
-      line-height: 1.55;
+      line-height: 1.6;
       word-wrap: break-word;
       white-space: pre-wrap;
     }
@@ -146,6 +146,7 @@
       background: ${CONFIG.primaryColor};
       color: #fff;
       border-bottom-right-radius: 4px;
+      padding: 10px 16px;
     }
     .mcpcw-msg-bot {
       align-self: flex-start;
@@ -153,6 +154,7 @@
       color: #1f2937;
       border: 1px solid #e5e7eb;
       border-bottom-left-radius: 4px;
+      padding: 14px 18px;
     }
 
     /* Typing indicator */
