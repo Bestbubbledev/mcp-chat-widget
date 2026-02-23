@@ -18,10 +18,8 @@
   const STYLES = `
     /* Reset inside widget */
     #mcpcw-container *, #mcpcw-container *::before, #mcpcw-container *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      box-sizing: border-box !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
     }
 
     /* Bubble button */
@@ -139,7 +137,7 @@
 
     .mcpcw-msg {
       max-width: 80%;
-      padding: 14px 18px;
+      padding: 14px 18px !important;
       border-radius: 10px;
       font-size: 13.5px;
       line-height: 1.6;
