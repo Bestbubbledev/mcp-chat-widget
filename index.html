@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Chat Widget — Embed AI Chat on Any Website</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* Nav */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-brand svg {
+      width: 28px;
+      height: 28px;
+      fill: #2563eb;
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 80px 24px 40px;
+    }
+    .hero h1 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #0f172a;
+    }
+    .hero h1 span {
+      color: #2563eb;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #64748b;
+      margin-top: 16px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Code section */
+    .code-section {
+      max-width: 760px;
+      margin: 40px auto 60px;
+      padding: 0 24px;
+    }
+    .code-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .code-section p {
+      color: #64748b;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .code-block {
+      position: relative;
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #0f172a;
+      border-bottom: 1px solid #334155;
+    }
+    .code-block-header span {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+    .copy-btn {
+      background: #334155;
+      color: #e2e8f0;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .copy-btn:hover {
+      background: #475569;
+    }
+    .copy-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+    .code-block pre {
+      padding: 20px;
+      overflow-x: auto;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .code-block code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+      color: #e2e8f0;
+    }
+
+    /* Config table */
+    .config-section {
+      max-width: 760px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .config-section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .config-table th {
+      text-align: left;
+      padding: 14px 20px;
+      background: #f1f5f9;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .config-table td {
+      padding: 14px 20px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 14px;
+      color: #334155;
+    }
+    .config-table td code {
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #2563eb;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Steps */
+    .steps {
+      max-width: 760px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .steps h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .step-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .step-content p {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      z-index: 999999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #94a3b8;
+      font-size: 13px;
+      border-top: 1px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12z"/>
+      </svg>
+      MCP Chat Widget
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Add <span>AI Chat</span> to any website in 30 seconds</h1>
+    <p>Copy one line of code, paste it into your site, and your visitors get a ChatGPT-like chat experience powered by your own MCP server.</p>
+  </section>
+
+  <section class="steps">
+    <h2>How it works</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Copy the embed code</h3>
+        <p>Grab the script tag below and paste it into your website's HTML, just before the closing <code>&lt;/body&gt;</code> tag.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Set your API endpoint</h3>
+        <p>Replace the <code>data-api-url</code> with the URL of your AI agent / MCP server endpoint. The widget will POST messages there and stream back responses.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Done — your visitors can chat!</h3>
+        <p>A chat bubble appears on your site. Visitors click it and get a full ChatGPT-style conversation with your AI agent.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="code-section">
+    <h2>Embed code</h2>
+    <p>Copy this snippet and add it to your website. The widget will appear automatically.</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <span>HTML</span>
+        <button class="copy-btn" onclick="copyCode()">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy
+        </button>
+      </div>
+      <pre><code id="embed-code">&lt;script
+  src="https://YOUR-DOMAIN.com/widget.js"
+  data-api-url="https://YOUR-API-ENDPOINT.com/chat"
+  data-title="Chat with us"
+  data-subtitle="Ask me anything"
+  data-color="#2563eb"
+  data-position="right"
+  data-placeholder="Type a message…"&gt;
+&lt;/script&gt;</code></pre>
+    </div>
+  </section>
+
+  <section class="config-section">
+    <h2>Configuration options</h2>
+    <table class="config-table">
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>data-api-url</code></td>
+          <td>Your AI endpoint URL. The widget POSTs <code>{ messages: [...] }</code> here.</td>
+          <td><em>Demo mode</em></td>
+        </tr>
+        <tr>
+          <td><code>data-title</code></td>
+          <td>Header title shown in the chat panel</td>
+          <td><code>Chat with us</code></td>
+        </tr>
+        <tr>
+          <td><code>data-subtitle</code></td>
+          <td>Header subtitle</td>
+          <td><code>Ask me anything</code></td>
+        </tr>
+        <tr>
+          <td><code>data-color</code></td>
+          <td>Primary accent color (hex)</td>
+          <td><code>#2563eb</code></td>
+        </tr>
+        <tr>
+          <td><code>data-position</code></td>
+          <td>Bubble position: <code>right</code> or <code>left</code></td>
+          <td><code>right</code></td>
+        </tr>
+        <tr>
+          <td><code>data-placeholder</code></td>
+          <td>Input placeholder text</td>
+          <td><code>Type a message…</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="code-section">
+    <h2>API endpoint format</h2>
+    <p>Your endpoint should accept POST requests with this body and return a streaming response (SSE or plain text):</p>
+    <div class="code-block">
+      <div class="code-block-header">
+        <span>Request body (JSON)</span>
+        <button class="copy-btn" onclick="copyApiFormat()">
+          <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy
+        </button>
+      </div>
+      <pre><code id="api-format">{
+  "messages": [
+    { "role": "user", "content": "Hello!" },
+    { "role": "assistant", "content": "Hi there!" },
+    { "role": "user", "content": "What can you do?" }
+  ]
+}</code></pre>
+    </div>
+  </section>
+
+  <footer>
+    MCP Chat Widget &mdash; Proof of Concept
+  </footer>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <!-- Load the widget for live demo (no API URL = demo mode) -->
+  <script src="widget.js"></script>
+
+  <script>
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text || 'Copied to clipboard!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function copyCode() {
+      const code = document.getElementById('embed-code').textContent;
+      navigator.clipboard.writeText(code).then(() => showToast());
+    }
+
+    function copyApiFormat() {
+      const code = document.getElementById('api-format').textContent;
+      navigator.clipboard.writeText(code).then(() => showToast());
+    }
+  </script>
+
+</body>
+</html>
